@@ -31,18 +31,24 @@
 									- spring-data-jpa	
 		  =============================================================================-->
 	
-    <beans profile="jpa,spring-data-jpa">
+	
+	<!-- 
+		If You want to use the 'application-managed-entityManagerFactory in classpath then required LocalEntityManagerFactoryBean.
+		LocalContainerEntityManagerFactoryBean is managed by WAS like a Tomcat and .. a JBOSS..-->
+    <beans profile="jpa, spring-data-jpa">
         <!-- JPA EntityManagerFactory -->
-        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-              p:dataSource-ref="dataSource">
+        <bean 	id="entityManagerFactory" 
+        			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+              		p:dataSource-ref="dataSource">
+              		
+            <!-- 
+                	the 'database' parameter refers to the database dialect being used.
+                	By default, Hibernate will use a 'HSQL' dialect because 'jpa.database' has been set to 'HSQL'
+                	inside file spring/data-access.properties
+            -->
             <property name="jpaVendorAdapter">
                 <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
                       p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
-                <!-- the 'database' parameter refers to the database dialect being used.
-                	By default, Hibernate will use a 'HSQL' dialect because 'jpa.database' has been set to 'HSQL'
-                	inside file spring/data-access.properties
-                
-                 -->
             </property>
             <!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, persistenceUnit will win -->
             <property name="persistenceUnitName" value="petclinic"/>
@@ -52,7 +58,6 @@
         <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
               p:entityManagerFactory-ref="entityManagerFactory"/>
-
 
         <!--
             Post-processor to perform exception translation on @Repository classes (from native

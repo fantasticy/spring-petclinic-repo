@@ -17,6 +17,8 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.ClinicService;
@@ -31,7 +33,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class VetController {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(VetController.class);
+	
     private final ClinicService clinicService;
 
 
@@ -42,6 +46,9 @@ public class VetController {
 
     @RequestMapping("/vets")
     public String showVetList(Map<String, Object> model) {
+    	logger.info("");
+    	logger.debug("");
+    	
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
         // so it is simpler for Object-Xml mapping
         Vets vets = new Vets();

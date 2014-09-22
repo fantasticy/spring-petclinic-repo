@@ -15,9 +15,10 @@
     </appender>
 
 	<!--<logger name="org.hibernate" level="debug"/> -->
-    <logger name="org.springframework.samples.petclinic" level="debug"/>
+    <logger name="org.springframework.samples.petclinic" level="warn"/>
          
-    <root level="info">
+    <!-- 명시적으로 선언된 logger 의 영향을 받지 않는 객체들은 Root Logger 의 영향을 받습니다. -->
+    <root level="debug">
         <appender-ref ref="console"/>
     </root>
 </configuration>
