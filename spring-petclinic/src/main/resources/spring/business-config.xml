@@ -49,13 +49,10 @@
             <property name="jpaVendorAdapter">
                 <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
                       p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
-<<<<<<< HEAD
                 <!-- the 'database' parameter refers to the database dialect being used.
                 	By default, Hibernate will use a 'HSQL' dialect because 'jpa.database' has been set to 'HSQL'
                 	inside file spring/data-access.properties
                  -->
-=======
->>>>>>> 1cc95bf940bdc9911052a745f28af3ba2e2a78e6
             </property>
             <!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, persistenceUnit will win -->
             <property name="persistenceUnitName" value="petclinic"/>
