@@ -18,6 +18,8 @@ package org.springframework.samples.petclinic.web;
 import java.util.Collection;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
@@ -42,6 +44,8 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes("pet")
 public class PetController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(PetController.class);
 
     private final ClinicService clinicService;
 
@@ -63,6 +67,8 @@ public class PetController {
 
     @RequestMapping(value = "/owners/{ownerId}/pets/new", method = RequestMethod.GET)
     public String initCreationForm(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
+    	logger.debug("");
+    	
         Owner owner = this.clinicService.findOwnerById(ownerId);
         Pet pet = new Pet();
         owner.addPet(pet);
@@ -72,6 +78,9 @@ public class PetController {
 
     @RequestMapping(value = "/owners/{ownerId}/pets/new", method = RequestMethod.POST)
     public String processCreationForm(@ModelAttribute("pet") Pet pet, BindingResult result, SessionStatus status) {
+    	logger.debug("");
+    	
+    	
         new PetValidator().validate(pet, result);
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";
